@@ -1,3 +1,59 @@
 <!doctype html>
+<style>
+  body { background: #222; }
+</style>
+<canvas id="my-canvas" height="600" width="980">
+</canvas>
 
 <script src="geometry.js"></script>
+<script>
+var canvas = document.getElementById("my-canvas");
+var ctx = canvas.getContext("2d");
+
+var queue = [];
+
+// Cylinder
+(function() {
+  ctx.fillStyle = "white";
+  ctx.fillText("sph2car: sphere to cartesian",180,230);
+  for (var i=1/8*Math.PI; i < 7/8*Math.PI; i += Math.PI/30) {
+    for (var j=3/4*Math.PI; j < 2*Math.PI; j += Math.PI/30) {
+      var drawDot = (function() {
+        var hue = 60*(j);
+        var car = sph2car(50,i,j);
+        return function() {
+          ctx.fillStyle = "hsl(" + Math.round(hue) + ",50%,50%)";
+          ctx.fillRect(100+2*car.x,140+2*car.y,2,2);
+          ctx.fillRect(400+2*car.y,140+2*car.z,2,2);
+          ctx.fillRect(700+2*car.z,140+2*car.x,2,2);
+        };
+      })();
+      queue.push(drawDot);
+    }
+  }
+})();
+
+
+/* Looping */
+
+function render() {
+  var i = Math.min(queue.length, 12);
+  while (i-- > 0) {
+    queue.pop()();
+  }
+};
+
+window.requestAnimFrame =   window.requestAnimationFrame || 
+  window.webkitRequestAnimationFrame || 
+  window.mozRequestAnimationFrame    || 
+  window.oRequestAnimationFrame      || 
+  window.msRequestAnimationFrame     || 
+  function(/* function */ callback, /* DOMElement */ element){
+    window.setTimeout(callback, 16);
+  };
+
+(function animloop(){
+  requestAnimFrame(animloop);
+  render();
+})();
+</script>

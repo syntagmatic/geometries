@@ -5,6 +5,7 @@
 <canvas id="my-canvas" height="600" width="980">
 </canvas>
 
+<script src="render.js"></script>
 <script src="geometry.js"></script>
 <script>
 var canvas = document.getElementById("my-canvas");
@@ -33,27 +34,6 @@ var queue = [];
   }
 })();
 
+startLoop();
 
-/* Looping */
-
-function render() {
-  var i = Math.min(queue.length, 12);
-  while (i-- > 0) {
-    queue.pop()();
-  }
-};
-
-window.requestAnimFrame =   window.requestAnimationFrame || 
-  window.webkitRequestAnimationFrame || 
-  window.mozRequestAnimationFrame    || 
-  window.oRequestAnimationFrame      || 
-  window.msRequestAnimationFrame     || 
-  function(/* function */ callback, /* DOMElement */ element){
-    window.setTimeout(callback, 16);
-  };
-
-(function animloop(){
-  requestAnimFrame(animloop);
-  render();
-})();
 </script>

@@ -4,6 +4,8 @@ sqrt = Math.sqrt
 acos = Math.acos
 atan2 = Math.atan2
 
+## Coordinate Transformations
+
 # Spherical to Cartesian Coordinates
 sph2car = (r,theta,phi) ->
   x: r * cos(phi) * sin(theta)
@@ -28,3 +30,18 @@ sph2cyl = (r,theta,phi) ->
   rho: r * sin(theta)
   phi: phi
   z: r * cos(theta)
+
+# Intersection of two lines: ab and cd
+intersection = (a, b, c, d) ->
+  x: ((a.x * b.y - a.y * b.x) * (c.x - d.x) - (a.x - b.x) * (c.x * d.y - c.y * d.x)) /
+     ((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x))
+  y: ((a.x * b.y - a.y * b.x) * (c.y - d.y) - (a.y - b.y) * (c.x * d.y - c.y * d.x)) /
+     ((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x))
+
+## Lines
+
+# 2D Euclidean Line
+# y = mx + b
+slopeLine = (m,b) ->
+  (x) -> m*x + b
+

@@ -12,11 +12,12 @@ var canvas = document.getElementById("my-canvas");
 var ctx = canvas.getContext("2d");
 
 var queue = [];
+ctx.font = "13px arial";
 
 // Cylinder
 (function() {
   ctx.fillStyle = "white";
-  ctx.fillText("sph2car: sphere to cartesian",180,230);
+  ctx.fillText("sph2car: sphere to cartesian",110,210);
   for (var i=1/8*Math.PI; i < 7/8*Math.PI; i += Math.PI/30) {
     for (var j=3/4*Math.PI; j < 2*Math.PI; j += Math.PI/30) {
       var drawDot = (function() {
@@ -33,6 +34,27 @@ var queue = [];
     }
   }
 })();
+
+
+// Intersection of two lines
+a = { x: 200, y: 300};
+b = { x: 250, y: 500};
+c = { x: 90, y: 300};
+d = { x: 500, y: 500};
+
+ctx.strokeStyle = "#fff"
+ctx.moveTo(a.x, a.y);
+ctx.lineTo(b.x, b.y);
+
+ctx.moveTo(c.x, c.y);
+ctx.lineTo(d.x, d.y);
+ctx.stroke();
+
+p = intersection(a,b,c,d);
+console.log(p);
+ctx.fillStyle = "#5df";
+ctx.fillRect(p.x-2.5,p.y-2.5,5,5)
+ctx.fillText("intersection of two lines",p.x+24,p.y);
 
 startLoop();
 

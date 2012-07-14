@@ -6,10 +6,6 @@
 <canvas id="my-canvas" height="900" width="980">
 </canvas>
 
-<script src="prelude.js"></script>
-<script>
-prelude.installPrelude(window)
-</script>
 <script src="render.js"></script>
 <script src="geometry.js"></script>
 <script>
@@ -101,8 +97,8 @@ ctx.fillText("pappus's theorem",590,320);
 
 
   fill("periwinkle");
-  each(point, a);
-  each(point, b);
+  a.forEach(point);
+  b.forEach(point);
 
   stroke("green");
   line(c[0], c[2]);
@@ -121,6 +117,10 @@ function line(a,b) {
   ctx.moveTo(a.x,a.y);
   ctx.lineTo(b.x,b.y);
   ctx.stroke();
+};
+
+function lines(points) {
+  
 };
 
 function fill(str) {

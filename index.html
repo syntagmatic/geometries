@@ -1,18 +1,25 @@
 <!doctype html>
+<title>Geometry</title>
 <style>
   body { background: #222; }
 </style>
-<canvas id="my-canvas" height="600" width="980">
+<canvas id="my-canvas" height="900" width="980">
 </canvas>
 
+<script src="prelude.js"></script>
+<script>
+prelude.installPrelude(window)
+</script>
 <script src="render.js"></script>
 <script src="geometry.js"></script>
 <script>
+
 var canvas = document.getElementById("my-canvas");
 var ctx = canvas.getContext("2d");
 
 var queue = [];
 ctx.font = "13px arial";
+ctx.strokeStyle = "#fff";
 
 // Cylinder
 (function() {
@@ -35,27 +42,93 @@ ctx.font = "13px arial";
   }
 })();
 
+startLoop();
+
 
 // Intersection of two lines
-a = { x: 200, y: 300};
-b = { x: 250, y: 500};
-c = { x: 90, y: 300};
-d = { x: 500, y: 500};
+(function() {
+  var a = { x: 200, y: 300};
+  var b = { x: 250, y: 400};
+  var c = { x: 150, y: 300};
+  var d = { x: 350, y: 400};
 
-ctx.strokeStyle = "#fff"
-ctx.moveTo(a.x, a.y);
-ctx.lineTo(b.x, b.y);
+  ctx.moveTo(a.x, a.y);
+  ctx.lineTo(b.x, b.y);
 
-ctx.moveTo(c.x, c.y);
-ctx.lineTo(d.x, d.y);
-ctx.stroke();
+  ctx.moveTo(c.x, c.y);
+  ctx.lineTo(d.x, d.y);
+  ctx.stroke();
 
-p = intersection(a,b,c,d);
-console.log(p);
-ctx.fillStyle = "#5df";
-ctx.fillRect(p.x-2.5,p.y-2.5,5,5)
-ctx.fillText("intersection of two lines",p.x+24,p.y);
+  p = intersection(a,b,c,d);
+  fill("white");
+  ctx.fillText("intersection of two lines",p.x+24,p.y);
+  fill("#5df");
+  ctx.fillRect(p.x-2.5,p.y-2.5,5,5)
+})();
 
-startLoop();
+// Pappus's Theorem
+fill("white");
+ctx.fillText("pappus's theorem",590,320);
+(function() {
+  var a = [
+    { x: 500, y: 300},
+    { x: 600, y: 340},
+    { x: 700, y: 380}
+  ];
+  var b = [
+    { x: 480, y: 380},
+    { x: 520, y: 460},
+    { x: 580, y: 580}
+  ];
+
+  var c = [
+    intersection(a[0],b[1],b[0],a[1]),
+    intersection(a[0],b[2],b[0],a[2]),
+    intersection(a[1],b[2],b[1],a[2])
+  ]
+
+  stroke("#555");
+  line(a[0], a[2]);
+  line(b[0], b[2]);
+
+  stroke("555");
+  line(a[0], b[1]);
+  line(a[0], b[2]);
+  line(a[1], b[0]);
+  line(a[1], b[2]);
+  line(a[2], b[0]);
+  line(a[2], b[1]);
+
+
+  fill("periwinkle");
+  each(point, a);
+  each(point, b);
+
+  stroke("green");
+  line(c[0], c[2]);
+  fill("orange");
+  point(c[0])
+  point(c[1])
+  point(c[2])
+})();
+
+function point(o) {
+  ctx.fillRect(o.x-2,o.y-2,4,4);
+};
+
+function line(a,b) {
+  ctx.beginPath();
+  ctx.moveTo(a.x,a.y);
+  ctx.lineTo(b.x,b.y);
+  ctx.stroke();
+};
+
+function fill(str) {
+  ctx.fillStyle = str;
+};
+
+function stroke(str) {
+  ctx.strokeStyle = str;
+};
 
 </script>

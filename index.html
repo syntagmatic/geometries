@@ -108,6 +108,27 @@ ctx.fillText("pappus's theorem",590,320);
   point(c[2])
 })();
 
+// Regular polygons
+fill("#fff");
+ctx.fillText("regular polygons",200,545);
+stroke("#bbb");
+(function() {
+  var x0 = 100;
+  var y0 = 600;
+  var r = 36;
+  var p = 5;
+  for (var n = 1; n<20; n++) {
+    var circle = {
+      x: x0 + 2*(r+p)*((n-1)%5), 
+      y: y0 + 2*(r+p)*Math.floor((n-1)/5), 
+      r: r
+    };
+    lines(polygon(circle, n), true);
+  }
+})();
+
+// Utility functions
+
 function point(o) {
   ctx.fillRect(o.x-2,o.y-2,4,4);
 };
@@ -119,8 +140,13 @@ function line(a,b) {
   ctx.stroke();
 };
 
-function lines(points) {
-  
+function lines(points, closed) {
+  ctx.beginPath();
+  ctx.moveTo(points[0].x,points[0].y);
+  for (var i = 1; i<points.length; i++)
+    ctx.lineTo(points[i].x,points[i].y);
+  if (closed) ctx.lineTo(points[0].x,points[0].y);
+  ctx.stroke();
 };
 
 function fill(str) {

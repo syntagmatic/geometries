@@ -62,8 +62,8 @@ slopeLine = function(m, b) {
 
 polygon = function(circle, n) {
   var i, _i, _ref, _results;
-  if (n < 3) {
-    return false;
+  if (n < 1) {
+    return;
   }
   _results = [];
   for (i = _i = 0, _ref = n - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {

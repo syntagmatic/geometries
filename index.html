@@ -48,18 +48,14 @@ startLoop();
   var c = { x: 150, y: 300};
   var d = { x: 350, y: 400};
 
-  ctx.moveTo(a.x, a.y);
-  ctx.lineTo(b.x, b.y);
-
-  ctx.moveTo(c.x, c.y);
-  ctx.lineTo(d.x, d.y);
-  ctx.stroke();
+  line(a,b);
+  line(c,d);
 
   p = intersection(a,b,c,d);
   fill("white");
   ctx.fillText("intersection of two lines",p.x+24,p.y);
   fill("#5df");
-  ctx.fillRect(p.x-2.5,p.y-2.5,5,5)
+  point(p);
 })();
 
 // Pappus's Theorem

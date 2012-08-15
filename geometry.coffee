@@ -41,10 +41,15 @@ intersection = (a, b, c, d) ->
 
 ## Lines
 
+
 # 2D Euclidean Line
 # y = mx + b
 slopeLine = (m,b) ->
   (x) -> m*x + b
+
+# Slope of two points
+slope = (a,b) ->
+  (b.y - a.y) / (b.x - a.x)
 
 ## Shapes
 

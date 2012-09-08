@@ -1,0 +1,115 @@
+<!doctype html>
+<title>Geometry - Pappus's Theerem</title>
+<style>
+  body { background: #222; }
+</style>
+<input id="a0x" type="range" min=0 max=800 step=1 value=500/>
+<input id="b0y" type="range" min=0 max=800 step=1 value=500/>
+<canvas id="my-canvas" height="900" width="980">
+</canvas>
+
+<script src="render.js"></script>
+<script src="geometry.js"></script>
+<script>
+
+var canvas = document.getElementById("my-canvas");
+var ctx = canvas.getContext("2d");
+
+var queue = [];
+ctx.font = "13px arial";
+ctx.strokeStyle = "#fff";
+
+// Pappus's Theorem
+var a = [
+  { x: 500, y: 300},
+  { x: 600, y: 340},
+  { x: 700, y: 380}
+];
+var b = [
+  { x: 100, y: 300},
+  { x: 300, y: 400},
+  { x: 500, y: 500}
+];
+
+pappus(a,b);
+document.getElementById("a0x")
+  .addEventListener("change", function() {
+    a[0].x = parseInt(this.value);
+    a[1].x = (a[0].x+a[2].x)/2;
+    ctx.clearRect(0,0,1000,1000);
+    pappus(a,b);
+  });
+document.getElementById("b0y")
+  .addEventListener("change", function() {
+    b[0].y = parseInt(this.value);
+    b[1].y = (b[0].y+b[2].y)/2;
+    ctx.clearRect(0,0,1000,1000);
+    pappus(a,b);
+  });
+
+function pappus(a,b) {
+fill("white");
+  var c = [
+    intersection(a[0],b[1],b[0],a[1]),
+    intersection(a[0],b[2],b[0],a[2]),
+    intersection(a[1],b[2],b[1],a[2])
+  ]
+
+  stroke("#555");
+  line(a[0], a[2]);
+  line(b[0], b[2]);
+
+  stroke("555");
+  line(a[0], b[1]);
+  line(a[0], b[2]);
+  line(a[1], b[0]);
+  line(a[1], b[2]);
+  line(a[2], b[0]);
+  line(a[2], b[1]);
+
+
+  fill("periwinkle");
+  a.forEach(point);
+  b.forEach(point);
+
+  stroke("green");
+  line(c[0], c[2]);
+  line(c[1], c[2]);
+  line(c[0], c[1]);
+  fill("orange");
+  point(c[0])
+  point(c[1])
+  point(c[2])
+};
+
+// Utility functions
+
+function point(o) {
+  ctx.fillRect(o.x-2,o.y-2,4,4);
+};
+
+function line(a,b) {
+  ctx.beginPath();
+  ctx.moveTo(a.x,a.y);
+  ctx.lineTo(b.x,b.y);
+  ctx.stroke();
+};
+
+function lines(points, closed) {
+  ctx.beginPath();
+  ctx.moveTo(points[0].x,points[0].y);
+  for (var i = 1; i<points.length; i++)
+    ctx.lineTo(points[i].x,points[i].y);
+  if (closed) ctx.lineTo(points[0].x,points[0].y);
+  ctx.stroke();
+};
+
+function fill(str) {
+  ctx.fillStyle = str;
+};
+
+function stroke(str) {
+  ctx.strokeStyle = str;
+};
+
+</script>

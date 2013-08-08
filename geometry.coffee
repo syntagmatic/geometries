@@ -39,8 +39,25 @@ intersection = (a, b, c, d) ->
   y: ((a.x * b.y - a.y * b.x) * (c.y - d.y) - (a.y - b.y) * (c.x * d.y - c.y * d.x)) /
      ((a.x - b.x) * (c.y - d.y) - (a.y - b.y) * (c.x - d.x))
 
-## Lines
+## Parallel coordinates
 
+# axis spacing
+D = 1
+
+# point in ||-coords to line in cartesian
+pointToLine = (p) ->
+  m = 1 - D/p[0]
+  b = p[1] * (1-m)
+  {m: m, b: b}
+
+# line in cartesian to point in ||-coords
+lineToPoint = (l) ->
+  p0 = D / (1 - l.m)
+  p1 = l.b / (1 - l.m)
+  [p0, p1]
+
+
+## Lines
 
 # 2D Euclidean Line
 # y = mx + b

@@ -85,13 +85,14 @@ slope = function(a, b) {
 
 polygon = function(n) {
   return function(circle) {
-    var i, _i, _ref, _results;
+    var angle, i, _i, _ref, _results;
     _results = [];
     for (i = _i = 0, _ref = n - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+      angle = 2 * pi * i / n;
       _results.push({
         i: i,
-        x: circle[0] + circle[2] * cos(2 * pi * i / n),
-        y: circle[1] + circle[2] * sin(2 * pi * i / n)
+        x: circle[0] + circle[2] * cos(angle),
+        y: circle[1] + circle[2] * sin(angle)
       });
     }
     return _results;

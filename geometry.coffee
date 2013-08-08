@@ -62,7 +62,7 @@ lineToPoint = (l) ->
 # 2D Euclidean Line
 # y = mx + b
 slopeLine = (m,b) ->
-  (x) -> m*x + b
+  (x) -> m * x + b
 
 # Slope of two points
 slope = (a,b) ->
@@ -75,6 +75,9 @@ slope = (a,b) ->
 polygon = (n) ->
   (circle) ->
     for i in [0..n-1]
-      i: i
-      x: circle[0]+circle[2]*cos(2*pi*i/n)
-      y: circle[1]+circle[2]*sin(2*pi*i/n)
+      angle = 2 * pi * i/n
+      {
+        i: i
+        x: circle[0]+circle[2]*cos(angle)
+        y: circle[1]+circle[2]*sin(angle)
+      }

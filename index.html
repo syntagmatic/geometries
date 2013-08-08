@@ -113,13 +113,14 @@ stroke("#bbb");
   var y0 = 600;
   var r = 36;
   var p = 5;
-  for (var n = 1; n<20; n++) {
-    var circle = {
-      x: x0 + 2*(r+p)*((n-1)%5), 
-      y: y0 + 2*(r+p)*Math.floor((n-1)/5), 
-      r: r
-    };
-    lines(polygon(circle, n), true);
+  for (var n = 3; n<13; n++) {
+    var ngon = polygon(n);
+    var circle = [
+      x0 + 2*(r+p)*((n-3)%5), 
+      y0 + 2*(r+p)*Math.floor((n-3)/5), 
+      r
+    ];
+    lines(ngon(circle, n), true);
   }
 })();
 

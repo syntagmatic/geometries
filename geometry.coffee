@@ -71,11 +71,10 @@ slope = (a,b) ->
 ## Shapes
 
 # Regular polygon
-# circle {x,y,r}
-polygon = (circle, n) ->
-  if n < 1
-    return
-  for i in [0..n-1]
-    i: i
-    x: circle.x+circle.r*cos(2*pi*i/n)
-    y: circle.y+circle.r*sin(2*pi*i/n)
+# circle [x,y,r]
+polygon = (n) ->
+  (circle) ->
+    for i in [0..n-1]
+      i: i
+      x: circle[0]+circle[2]*cos(2*pi*i/n)
+      y: circle[1]+circle[2]*sin(2*pi*i/n)

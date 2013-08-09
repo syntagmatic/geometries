@@ -1,0 +1,47 @@
+<!doctype html>
+<title>Geometry</title>
+<style>
+  body { background: #222; }
+</style>
+<canvas id="my-canvas" height="500" width="500">
+</canvas>
+
+<script src="geometry.js"></script>
+<script src="render.js"></script>
+<script>
+// http://www.redblobgames.com/grids/hexagons/
+var hexagon = polygon(6);
+
+ctx.font = "13px arial";
+ctx.strokeStyle = "#fff";
+ctx.translate(canvas.width/2, canvas.height/2);
+
+// movement range test
+function within(n) {
+  var results = [];
+  for (var x=-n; x<n+1; x++) {
+    for (var y=-n; y<n+1; y++) {
+      for (var z=-n; z<n+1; z++) {
+        if (x + y + z == 0) {
+          results.push([x,y,z]);
+        }
+      }
+    }
+  }
+  return results;
+}
+
+for (var x=-5; x<6; x++) {
+  for (var y=-5; y<6; y++) {
+    var size = 9;
+    var height = 2 * size * sin(pi/3);
+    var width = 1.5 * size;
+    var circle = [
+      width * x, 
+      height * y + height / 2 * (x&1), 
+      size
+    ];
+    lines(hexagon(circle), true);
+  }
+}
+</script>
